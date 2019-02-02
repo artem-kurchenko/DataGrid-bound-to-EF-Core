@@ -1,0 +1,21 @@
+@using EFCoreTest.Models
+
+<h2>Home</h2>
+@(Html.DevExtreme().DataGrid<Order>()
+    .ShowBorders(true)
+    .OnContentReady("onContentReady")
+    .DataSource(d => d.Mvc().Controller("Orders").LoadAction("Get").Key("OrderID"))
+    .Columns(columns => {
+        columns.AddFor(m => m.OrderID);
+        columns.AddFor(m => m.OrderDate);
+        columns.AddFor(m => m.ShipAddress);
+        columns.AddFor(m => m.ShipCountry); //.SortOrder(SortOrder.Asc);
+        columns.AddFor(m => m.ShipCity);
+    })
+    .Paging(p => p.PageSize(10))
+    .FilterRow(f => f.Visible(true))
+    .HeaderFilter(f => f.Visible(true))
+    .GroupPanel(p => p.Visible(true))
+    .Grouping(g => g.AutoExpandAll(false))
+    .RemoteOperations(true)
+)
